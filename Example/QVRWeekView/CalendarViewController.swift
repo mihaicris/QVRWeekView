@@ -200,7 +200,7 @@ class CalendarViewController: UIViewController, WeekViewDelegate {
                     let title = "Test+\(id):TextTest TextTest TextTest TextTest TextTest"
                     let color = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 0.5)
 
-                    let data = EventData(id: id, title: title, startDate: start, endDate: end, color: color)
+                    let data = EventData(id: id, title: title, startDate: start, endDate: end, color: color, allDay: true)
                     allEvents[id] = data
                     dateEvents.append(data)
                     id += 1
