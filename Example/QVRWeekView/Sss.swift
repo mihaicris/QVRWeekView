@@ -9,22 +9,13 @@
 import QVRWeekView
 import UIKit
 
-public var autoFillEvents = true
-
-class CalendarViewController: UIViewController, WeekViewDelegate {
+class Sss: UIViewController, WeekViewDelegate {
 
     var allEvents: [Int: EventData] = [:]
     var eventsSortedByDay: [Date: [EventData]] = [:]
     var id: Int = 0
 
-    @IBOutlet var weekView: WeekView!
-
-    @IBAction func testButtonPress(_ sender: Any) {
-        let df = DateFormatter()
-        df.dateFormat="yyyy-MM-dd|HH:mm:ss"
-        let date = df.date(from: "2017-12-25|17:15:06")!
-        weekView.showDay(withDate: date, showTime: true)
-    }
+    @IBOutlet weak var weekView: WeekView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,17 +30,16 @@ class CalendarViewController: UIViewController, WeekViewDelegate {
     }
 
     func didLongPressDayView(in weekView: WeekView, atDate date: Date) {
-        let alert = UIAlertController(title: "Long pressed \(date.description(with: Locale.current))",
-                                      message: nil,
-                                      preferredStyle: .alert)
+        let alert = UIAlertController(title: "Long pressed \(date.description(with: Locale.current))", message: nil,
+            preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Short Gradient", style: .default, handler: { _ in
             let color = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 0.5)
             let newEvent = EventData(id: self.id,
                                      title: "Test Event \(self.id)",
-                                     startDate: date,
-                                     endDate: date.addingTimeInterval(60*60*1),
-                                     location: "loc test",
-                                     color: color)
+                startDate: date,
+                endDate: date.addingTimeInterval(60*60*1),
+                location: "loc test",
+                color: color)
             newEvent.configureGradient(UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 0.5))
             self.allEvents[self.id] = newEvent
             self.id += 1
@@ -59,10 +49,10 @@ class CalendarViewController: UIViewController, WeekViewDelegate {
             let color = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 0.5)
             let newEvent = EventData(id: self.id,
                                      title: "Test Event \(self.id)",
-                                     startDate: date,
-                                     endDate: date.addingTimeInterval(60*60*1),
-                                     location: "loc test",
-                                     color: color)
+                startDate: date,
+                endDate: date.addingTimeInterval(60*60*1),
+                location: "loc test",
+                color: color)
             self.allEvents[self.id] = newEvent
             self.id += 1
             weekView.loadEvents(withData: Array(self.allEvents.values))
@@ -71,10 +61,10 @@ class CalendarViewController: UIViewController, WeekViewDelegate {
             let color = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 0.5)
             let newEvent = EventData(id: self.id,
                                      title: "Test Event \(self.id)",
-                                     startDate: date,
-                                     endDate: date.addingTimeInterval(60*60*3),
-                                     location: "loc test",
-                                     color: color)
+                startDate: date,
+                endDate: date.addingTimeInterval(60*60*3),
+                location: "loc test",
+                color: color)
             self.allEvents[self.id] = newEvent
             self.id += 1
             weekView.loadEvents(withData: Array(self.allEvents.values))
@@ -83,10 +73,10 @@ class CalendarViewController: UIViewController, WeekViewDelegate {
             let color = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 0.5)
             let newEvent = EventData(id: self.id,
                                      title: "Test Event \(self.id)",
-                                     startDate: date,
-                                     endDate: date.addingTimeInterval(60*60*4),
-                                     location: "loc test",
-                                     color: color)
+                startDate: date,
+                endDate: date.addingTimeInterval(60*60*4),
+                location: "loc test",
+                color: color)
             self.allEvents[self.id] = newEvent
             self.id += 1
             weekView.loadEvents(withData: Array(self.allEvents.values))
@@ -183,7 +173,6 @@ class CalendarViewController: UIViewController, WeekViewDelegate {
             eventsSortedByDay[date] = nil
         }
 
-        if autoFillEvents {
             for date in dates where eventsSortedByDay[date] == nil {
                 var dateEvents: [EventData] = []
                 let n = Int(drand48()*25)
@@ -207,7 +196,6 @@ class CalendarViewController: UIViewController, WeekViewDelegate {
                 }
                 eventsSortedByDay[date] = dateEvents
             }
-        }
         weekView.loadEvents(withData: allEvents.isEmpty ? nil : Array(allEvents.values))
     }
 
