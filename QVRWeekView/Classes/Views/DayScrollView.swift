@@ -12,7 +12,7 @@ UICollectionViewDelegate, UICollectionViewDataSource, DayViewCellDelegate, Frame
     // MARK: - INSTANCE VARIABLES -
 
     var layoutVariables = LayoutVariables()
-    
+
     // Collection view
     private(set) var dayCollectionView: DayCollectionView!
     // All eventData objects
@@ -55,6 +55,11 @@ UICollectionViewDelegate, UICollectionViewDataSource, DayViewCellDelegate, Frame
     private var previousZoomTouch: CGPoint?
     // Current zoom scale of content
     private var lastTouchZoomScale = CGFloat(1)
+
+    // Fix for full day event after rotation of the device
+    // When device is rotated all day events are moved out of the frame,
+    // since they are build not using autolayout
+    private var screenWidth = CGFloat(0)
 
     // MARK: - CONSTRUCTORS/OVERRIDES -
 
@@ -222,13 +227,13 @@ UICollectionViewDelegate, UICollectionViewDataSource, DayViewCellDelegate, Frame
             }
         }
     }
-    
+
     func layoutVariables(for dayViewCell: DayViewCell) -> LayoutVariables {
         return layoutVariables
     }
 
     // solution == nil => do not render events. solution.isEmpty => render empty
-    func passSolution(fromCalculator calculator: FrameCalculator, solution: [String : CGRect]?) {
+    func passSolution(fromCalculator calculator: FrameCalculator, solution: [String: CGRect]?) {
         let date = calculator.date
         allEventFrames[date] = solution
         frameCalculators[date] = nil
@@ -264,7 +269,7 @@ UICollectionViewDelegate, UICollectionViewDataSource, DayViewCellDelegate, Frame
             let yOffset = layoutVariables.totalContentHeight*time.getPercentDayPassed()-(layoutVariables.activeFrameHeight/2)
             let minOffsetY = layoutVariables.minOffsetY
             let maxOffsetY = layoutVariables.maxOffsetY
-            self.setContentOffset(CGPoint(x:0, y: yOffset < minOffsetY ? minOffsetY : (yOffset > maxOffsetY ? maxOffsetY : yOffset)), animated: true)
+            self.setContentOffset(CGPoint(x: 0, y: yOffset < minOffsetY ? minOffsetY : (yOffset > maxOffsetY ? maxOffsetY : yOffset)), animated: true)
         }
     }
 
@@ -494,6 +499,11 @@ UICollectionViewDelegate, UICollectionViewDataSource, DayViewCellDelegate, Frame
 
         if let weekView = self.superview?.superview as? WeekView {
             weekView.updateVisibleLabelsAndMainConstraints()
+
+            if screenWidth != frame.width {
+                dayCollectionView.reloadData()
+                screenWidth = frame.width
+            }
         }
     }
 
@@ -547,7 +557,7 @@ UICollectionViewDelegate, UICollectionViewDataSource, DayViewCellDelegate, Frame
 
 // MARK: - PERIOD CHANGE ENUM -
 
-fileprivate enum PeriodChange {
+private enum PeriodChange {
     case forward
     case backward
 }
@@ -627,6 +637,30 @@ extension DayScrollView {
      */
     func setEventLabelHorizontalTextPadding(to padding: CGFloat) {
         TextVariables.eventLabelHorizontalTextPadding = padding
+        updateLayout()
+    }
+
+    /**
+     Sets if time of events should be shown.
+     */
+    func setEventShowTimeOfEvent(to showTime: Bool) {
+        TextVariables.eventShowTimeOfEvent = showTime
+        updateLayout()
+    }
+
+    /**
+     Sets showing all event's data in one line.
+     */
+    func setEventsDataInOneLine(to dataInOneLine: Bool) {
+        TextVariables.eventsDataInOneLine = dataInOneLine
+        updateLayout()
+    }
+
+    /**
+     Set's smalles heigh for event.
+     */
+    func setEventsSmallestHeight(to height: CGFloat) {
+        TextVariables.eventsSmallestHeight = height
         updateLayout()
     }
 
@@ -906,12 +940,14 @@ class LayoutVariables {
             updateDayViewCellWidth()
         }
     }
+
     // Width of spacing between day columns in landscape mode
     private(set) var dayViewHorizontalSpacing = LayoutDefaults.portraitDayViewHorizontalSpacing {
         didSet {
             updateDayViewCellWidth()
         }
     }
+
     // Width of spacing between day columns in landscape mode
     private(set) var dayViewVerticalSpacing = LayoutDefaults.portraitDayViewVerticalSpacing {
         didSet {
@@ -925,6 +961,7 @@ class LayoutVariables {
             updateDayViewCellHeight()
         }
     }
+
     // Height of the current day columns
     private(set) var dayViewCellHeight = LayoutDefaults.dayViewCellHeight {
         didSet {
@@ -989,6 +1026,7 @@ class LayoutVariables {
             updateOrientationValues()
         }
     }
+
     // Width of spacing between day columns in landscape mode
     fileprivate(set) var landscapeDayViewHorizontalSpacing = LayoutDefaults.landscapeDayViewHorizontalSpacing {
         didSet {
@@ -1097,7 +1135,7 @@ class LayoutVariables {
         maxOffsetX = CGFloat(daysInActiveYear)*totalDayViewCellWidth
         maxOffsetY = totalContentHeight - activeFrameHeight
     }
-    
+
     // MARK: - UPDATE FUNCTIONS -
 
     private func updateOrientationValues() {
@@ -1151,7 +1189,6 @@ class LayoutVariables {
 }
 
 extension TextVariables {
-
     // Font for all event labels
     fileprivate(set) static var eventLabelFont = LayoutDefaults.eventLabelFont
     // Font for all event labels
@@ -1166,5 +1203,10 @@ extension TextVariables {
     fileprivate(set) static var eventLabelHorizontalTextPadding = LayoutDefaults.eventLabelHorizontalTextPadding
     // Vertical padding of text in event labels
     fileprivate(set) static var eventLabelVerticalTextPadding = LayoutDefaults.eventLabelVerticalTextPadding
-
+    // Showing events' time.
+    fileprivate(set) static var eventShowTimeOfEvent = LayoutDefaults.eventShowTimeOfEvent
+    // Showing all event's data in one line
+    fileprivate(set) static var eventsDataInOneLine = LayoutDefaults.eventsDataInOneLine
+    // Smalles heigh for event
+    fileprivate(set) static var eventsSmallestHeight = LayoutDefaults.eventsSmallestHeight
 }

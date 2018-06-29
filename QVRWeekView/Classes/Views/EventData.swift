@@ -30,7 +30,7 @@ open class EventData: CustomStringConvertible, Equatable, Hashable {
     // Stores an optional gradient layer which will be used to draw event. Can only be set once.
     private(set) var gradientLayer: CAGradientLayer? { didSet { gradientLayer = oldValue ?? gradientLayer } }
     // Stores an optional dictionary, containing the time of the original event before splitting
-    private(set) var originalTime: [String:Date]?
+    private(set) var originalTime: [String: Date]?
 
     // Hashvalue
     public var hashValue: Int {
@@ -148,28 +148,37 @@ open class EventData: CustomStringConvertible, Equatable, Hashable {
      Returns the string that will be displayed by this event. Overridable.
      */
     open func getDisplayString(withMainFont mainFont: UIFont = TextVariables.eventLabelFont, andInfoFont infoFont: UIFont = TextVariables.eventLabelInfoFont) -> NSAttributedString {
-        let df = DateFormatter()
-        df.dateFormat = "HH:mm"
         let mainFontAttributes: [String: Any] = [NSFontAttributeName: mainFont, NSForegroundColorAttributeName: TextVariables.eventLabelTextColor.cgColor]
         let infoFontAttributes: [String: Any] = [NSFontAttributeName: infoFont, NSForegroundColorAttributeName: TextVariables.eventLabelTextColor.cgColor]
-        let mainAttributedString = NSMutableAttributedString(string: self.title, attributes: mainFontAttributes)
-        if !self.allDay {
-            var startShow = self.startDate
-            var endShow = self.endDate
-            if let origin = self.originalTime, let start = origin["startDate"], let end = origin["endDate"] {
-                startShow = start
-                endShow = end
-            }
-            mainAttributedString.append(NSMutableAttributedString(
-                string: " (\(df.string(from: startShow)) - \(df.string(from: endShow)))",
-                attributes: infoFontAttributes)
-            )
-        }
-        if self.location != "" {
-            mainAttributedString.append(NSMutableAttributedString(string: " | \(self.location)", attributes: infoFontAttributes))
-        }
-        return mainAttributedString
 
+        if TextVariables.eventsDataInOneLine {
+            return NSMutableAttributedString(string: "\(self.title) \(TextVariables.eventShowTimeOfEvent ? time() : "") \(self.location)", attributes: mainFontAttributes)
+        } else {
+            let mainAttributedString = NSMutableAttributedString(string: self.title, attributes: mainFontAttributes)
+            if !self.allDay && TextVariables.eventShowTimeOfEvent {
+                mainAttributedString.append(NSMutableAttributedString(
+                    string: " \(time())",
+                    attributes: infoFontAttributes)
+                )
+            }
+            if self.location != "" {
+                mainAttributedString.append(NSMutableAttributedString(string: " \(self.location)", attributes: infoFontAttributes))
+            }
+            return mainAttributedString
+        }
+    }
+
+    private func time() -> String {
+        let df = DateFormatter()
+        df.dateFormat = "HH:mm"
+
+        var startShow = self.startDate
+        var endShow = self.endDate
+        if let origin = self.originalTime, let start = origin["startDate"], let end = origin["endDate"] {
+            startShow = start
+            endShow = end
+        }
+        return "(\(df.string(from: startShow)) - \(df.string(from: endShow)))"
     }
 
     // Configures the gradient based on the provided color and given endColor.
@@ -198,7 +207,7 @@ open class EventData: CustomStringConvertible, Equatable, Hashable {
     }
 
     // Set original time dict. based on provided dict.
-    public func setOriginalTime(originTime: [String:Date]) {
+    public func setOriginalTime(originTime: [String: Date]) {
         self.originalTime = originTime
     }
 
@@ -206,13 +215,18 @@ open class EventData: CustomStringConvertible, Equatable, Hashable {
      Creates a layer object for current event data and given frame.
      */
     func generateLayer(withFrame frame: CGRect, resizeText: Bool = false) -> CAShapeLayer {
+        var newFrame = frame
 
-        self.layer.path = CGPath(rect: frame, transform: nil)
+        if TextVariables.eventsSmallestHeight > CGFloat(0) && frame.height < TextVariables.eventsSmallestHeight {
+            newFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: TextVariables.eventsSmallestHeight)
+        }
+
+        self.layer.path = CGPath(rect: newFrame, transform: nil)
         for sub in self.layer.sublayers! {
             if let gradient = sub as? CAGradientLayer {
                 CATransaction.begin()
                 CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
-                gradient.frame = frame
+                gradient.frame = newFrame
                 CATransaction.commit()
             }
             else if let text = sub as? CATextLayer {
@@ -221,7 +235,7 @@ open class EventData: CustomStringConvertible, Equatable, Hashable {
                     if let string = text.string as? NSAttributedString {
                         let font = TextVariables.eventLabelFont
                         var fontSize = font.pointSize
-                        while Util.getSize(ofString: string.string, withFont: font.withSize(fontSize), inFrame: frame).height > frame.height &&
+                        while Util.getSize(ofString: string.string, withFont: font.withSize(fontSize), inFrame: newFrame).height > newFrame.height &&
                             fontSize > TextVariables.eventLabelMinimumFontSize {
                                 fontSize -= 1
                         }
@@ -235,10 +249,10 @@ open class EventData: CustomStringConvertible, Equatable, Hashable {
                 CATransaction.setDisableActions(true)
                 let xPadding = TextVariables.eventLabelHorizontalTextPadding
                 let yPadding = TextVariables.eventLabelVerticalTextPadding
-                text.frame = CGRect(x: frame.origin.x + xPadding,
-                                    y: frame.origin.y + yPadding,
-                                    width: frame.width - 2*xPadding,
-                                    height: frame.height - 2*yPadding)
+                text.frame = CGRect(x: newFrame.origin.x + xPadding,
+                                    y: newFrame.origin.y + yPadding,
+                                    width: newFrame.width - 2*xPadding,
+                                    height: newFrame.height - 2*yPadding)
             }
         }
         return self.layer
@@ -248,7 +262,7 @@ open class EventData: CustomStringConvertible, Equatable, Hashable {
      In case this event spans multiple days this function will be called to split it into multiple events
      which can be assigned to individual dayViewCells.
      */
-    func checkForSplitting () -> [DayDate:EventData] {
+    func checkForSplitting () -> [DayDate: EventData] {
         var splitEvents: [DayDate: EventData] = [:]
         let startDayDate = DayDate(date: startDate)
         if startDate.isSameDayAs(endDate) {

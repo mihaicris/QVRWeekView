@@ -405,6 +405,42 @@ public extension WeekView {
     }
 
     /**
+     Should time of events be shown.
+     */
+    public var eventShowTimeOfEvent: Bool {
+        get {
+            return TextVariables.eventShowTimeOfEvent
+        }
+        set(showTime) {
+            self.dayScrollView.setEventShowTimeOfEvent(to: showTime)
+        }
+    }
+
+    /**
+     Should all event's data be in one line
+     */
+    public var eventsDataInOneLine: Bool {
+        get {
+            return TextVariables.eventsDataInOneLine
+        }
+        set(dataInOneLine) {
+            self.dayScrollView.setEventsDataInOneLine(to: dataInOneLine)
+        }
+    }
+
+    /**
+     Set's smalles heigh for event.
+     */
+    public var eventsSmallestHeight: CGFloat {
+        get {
+            return TextVariables.eventsSmallestHeight
+        }
+        set(height) {
+            self.dayScrollView.setEventsSmallestHeight(to: height)
+        }
+    }
+
+    /**
      The text shown inside the previw event.
      */
     public var previewEventText: String {
@@ -775,7 +811,7 @@ extension TextVariables {
 extension LayoutVariables {
 
     private static var adjustedDefaultTopBarHeightValues = [ObjectIdentifier: CGFloat]()
-    
+
     // Default height of the top bar
     fileprivate(set) var defaultTopBarHeight: CGFloat {
         get { return LayoutVariables.adjustedDefaultTopBarHeightValues[ObjectIdentifier(self)] ?? LayoutDefaults.defaultTopBarHeight }
