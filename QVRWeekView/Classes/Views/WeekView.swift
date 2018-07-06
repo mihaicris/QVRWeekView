@@ -438,6 +438,9 @@ open class WeekView: UIView {
         }
     }
 
+    public func setScrolling(enabled: Bool) {
+        dayScrollView.setScrolling(enabled: enabled)
+    }
 }
 
 /**
