@@ -553,6 +553,12 @@ UICollectionViewDelegate, UICollectionViewDataSource, DayViewCellDelegate, Frame
         // Load new events for new period
         requestEvents()
     }
+
+    public func setScrolling(enabled: Bool) {
+        isScrollEnabled = enabled
+        dayCollectionView.isScrollEnabled = enabled
+    }
+
 }
 
 // MARK: - PERIOD CHANGE ENUM -
