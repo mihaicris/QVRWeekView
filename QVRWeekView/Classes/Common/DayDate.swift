@@ -40,9 +40,12 @@ class DayDate: Hashable, Comparable, CustomStringConvertible {
         return Calendar.current.date(from: dateComps)!
     }()
 
-    lazy var hashValue: Int = {
-        return "\(self.day)-\(self.month)-\(self.year)-\(self.era)".hashValue
-    }()
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(day)
+        hasher.combine(month)
+        hasher.combine(year)
+        hasher.combine(era)
+    }
 
     lazy var largeString: String = {
         return self.getString(forMode: .large)

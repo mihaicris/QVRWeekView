@@ -33,8 +33,8 @@ open class EventData: CustomStringConvertible, Equatable, Hashable {
     private(set) var originalTime: [String: Date]?
 
     // Hashvalue
-    public var hashValue: Int {
-        return id.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 
     // String descriptor
@@ -148,8 +148,8 @@ open class EventData: CustomStringConvertible, Equatable, Hashable {
      Returns the string that will be displayed by this event. Overridable.
      */
     open func getDisplayString(withMainFont mainFont: UIFont = TextVariables.eventLabelFont, andInfoFont infoFont: UIFont = TextVariables.eventLabelInfoFont) -> NSAttributedString {
-        let mainFontAttributes: [String: Any] = [NSFontAttributeName: mainFont, NSForegroundColorAttributeName: TextVariables.eventLabelTextColor.cgColor]
-        let infoFontAttributes: [String: Any] = [NSFontAttributeName: infoFont, NSForegroundColorAttributeName: TextVariables.eventLabelTextColor.cgColor]
+        let mainFontAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: mainFont, NSAttributedString.Key.foregroundColor: TextVariables.eventLabelTextColor.cgColor]
+        let infoFontAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: infoFont, NSAttributedString.Key.foregroundColor: TextVariables.eventLabelTextColor.cgColor]
 
         if TextVariables.eventsDataInOneLine {
             return NSMutableAttributedString(string: "\(self.title) \(TextVariables.eventShowTimeOfEvent ? time() : "") \(self.location)", attributes: mainFontAttributes)

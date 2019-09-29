@@ -465,10 +465,10 @@ private class EventFrame: CustomStringConvertible, Hashable {
         return CGRect(x: self.x, y: self.y, width: self.width, height: self.height)
     }
 
-    var hashValue: Int {
-        return id.hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
-
+    
     static func == (lhs: EventFrame, rhs: EventFrame) -> Bool {
         return lhs.id == rhs.id
     }
@@ -505,12 +505,13 @@ private struct WidthPosValue: Hashable, CustomStringConvertible {
     var x: CGFloat
     var width: CGFloat
 
-    var hashValue: Int {
-        return "[\(x),\(width)]".hashValue
-    }
-
     var description: String {
         return "\n{x: \(x), width: \(width)}"
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(x)
+        hasher.combine(width)
     }
 
     static func == (lhs: WidthPosValue, rhs: WidthPosValue) -> Bool {

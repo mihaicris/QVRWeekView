@@ -17,7 +17,7 @@ public extension WeekView {
     /**
      Background color of main scrollview.
      */
-    public var mainBackgroundColor: UIColor {
+    var mainBackgroundColor: UIColor {
         get {
             return self.mainView.backgroundColor!
         }
@@ -30,7 +30,7 @@ public extension WeekView {
     /**
      Default height of the top bar
      */
-    public var defaultTopBarHeight: CGFloat {
+    var defaultTopBarHeight: CGFloat {
         get {
             return dayScrollView.layoutVariables.defaultTopBarHeight
         }
@@ -43,7 +43,7 @@ public extension WeekView {
     /**
      Background color of top bar containing day labels.
      */
-    public var topBarColor: UIColor {
+    var topBarColor: UIColor {
         get {
             return self.topBarView.backgroundColor!
         }
@@ -56,7 +56,7 @@ public extension WeekView {
     /**
      Color of the side bar containing hour labels.
      */
-    public var sideBarColor: UIColor {
+    var sideBarColor: UIColor {
         get {
             return self.sideBarView.backgroundColor!
         }
@@ -68,7 +68,7 @@ public extension WeekView {
     /**
      Width of the side bar containing hour labels.
      */
-    public var sideBarWidth: CGFloat {
+    var sideBarWidth: CGFloat {
         get {
             return self.sideBarView.frame.width
         }
@@ -81,7 +81,7 @@ public extension WeekView {
     /**
      Font for all day labels contained in the top bar.
      */
-    public var dayLabelDefaultFont: UIFont {
+    var dayLabelDefaultFont: UIFont {
         get {
             return TextVariables.dayLabelDefaultFont
         }
@@ -94,7 +94,7 @@ public extension WeekView {
     /**
      Text color for all day labels contained in the top bar.
      */
-    public var dayLabelTextColor: UIColor {
+    var dayLabelTextColor: UIColor {
         get {
             return TextVariables.dayLabelTextColor
         }
@@ -107,7 +107,7 @@ public extension WeekView {
     /**
      Text color for today day label contained in the top bar.
      */
-    public var dayLabelTodayTextColor: UIColor {
+    var dayLabelTodayTextColor: UIColor {
         get {
             return TextVariables.dayLabelTodayTextColor
         }
@@ -120,7 +120,7 @@ public extension WeekView {
     /**
      Minimum font size that day label text will be resized to if label is too small.
      */
-    public var dayLabelMinimumFontSize: CGFloat {
+    var dayLabelMinimumFontSize: CGFloat {
         get {
             return TextVariables.dayLabelMinimumFontSize
         }
@@ -134,7 +134,7 @@ public extension WeekView {
      Short date format for day labels.
      See reference of date formats at: http://nsdateformatter.com/
      */
-    public var dayLabelShortDateFormat: String {
+    var dayLabelShortDateFormat: String {
         get {
             return TextVariables.dayLabelDateFormats[.small]!
         }
@@ -148,7 +148,7 @@ public extension WeekView {
      Normal date format for day labels.
      See reference of date formats at: http://nsdateformatter.com/
      */
-    public var dayLabelNormalDateFormat: String {
+    var dayLabelNormalDateFormat: String {
         get {
             return TextVariables.dayLabelDateFormats[.normal]!
         }
@@ -162,7 +162,7 @@ public extension WeekView {
      Long date format for day labels.
      See reference of date formats at: http://nsdateformatter.com/
      */
-    public var dayLabelLongDateFormat: String {
+    var dayLabelLongDateFormat: String {
         get {
             return TextVariables.dayLabelDateFormats[.large]!
         }
@@ -176,7 +176,7 @@ public extension WeekView {
      Locale for the day labels.
      If none is given device locale will be used.
     */
-    public var dayLabelDateLocaleIdentifier: String {
+    var dayLabelDateLocaleIdentifier: String {
         get {
             if let locale = TextVariables.dayLabelDateLocale {
                 return locale.languageCode!
@@ -193,7 +193,7 @@ public extension WeekView {
     /**
      Font for all hour labels contained in the side bar.
      */
-    public var hourLabelFont: UIFont {
+    var hourLabelFont: UIFont {
         get {
             return TextVariables.hourLabelFont
         }
@@ -206,7 +206,7 @@ public extension WeekView {
     /**
      Text color for all hour labels contained in the side bar.
      */
-    public var hourLabelTextColor: UIColor {
+    var hourLabelTextColor: UIColor {
         get {
             return TextVariables.hourLabelTextColor
         }
@@ -219,7 +219,7 @@ public extension WeekView {
     /**
      Minimum percentage that hour label text will be resized to if label is too small.
      */
-    public var hourLabelMinimumFontSize: CGFloat {
+    var hourLabelMinimumFontSize: CGFloat {
         get {
             return TextVariables.hourLabelMinimumFontSize
         }
@@ -232,7 +232,7 @@ public extension WeekView {
     /**
      Format of all hour labels.
      */
-    public var hourLabelDateFormat: String {
+    var hourLabelDateFormat: String {
         get {
             return TextVariables.hourLabelDateFormat
         }
@@ -245,7 +245,7 @@ public extension WeekView {
     /**
      Height of all day labels.
      */
-    public var allDayEventHeight: CGFloat {
+    var allDayEventHeight: CGFloat {
         get {
             return dayScrollView.layoutVariables.allDayEventHeight
         }
@@ -257,7 +257,7 @@ public extension WeekView {
     /**
      Height of all day labels.
      */
-    public var allDayEventVerticalSpacing: CGFloat {
+    var allDayEventVerticalSpacing: CGFloat {
         get {
             return dayScrollView.layoutVariables.allDayEventVerticalSpacing
         }
@@ -269,7 +269,7 @@ public extension WeekView {
     /**
      Spread all day events on x axis, if not true than spread will be made on y axis.
      */
-    public var allDayEventsSpreadOnX: Bool {
+    var allDayEventsSpreadOnX: Bool {
         get {
             return dayScrollView.layoutVariables.allDayEventsSpreadOnX
         }
@@ -295,7 +295,7 @@ public extension WeekView {
     /**
      Number of visible days when in portait mode.
      */
-    public var visibleDaysInPortraitMode: Int {
+    var visibleDaysInPortraitMode: Int {
         get {
             return Int(dayScrollView.layoutVariables.portraitVisibleDays)
         }
@@ -309,7 +309,7 @@ public extension WeekView {
     /**
      Number of visible days when in landscape mode.
      */
-    public var visibleDaysInLandscapeMode: Int {
+    var visibleDaysInLandscapeMode: Int {
         get {
             return Int(dayScrollView.layoutVariables.landscapeVisibleDays)
         }
@@ -323,7 +323,7 @@ public extension WeekView {
     /**
      Font used for all event labels contained in the day view cells.
      */
-    public var eventLabelFont: UIFont {
+    var eventLabelFont: UIFont {
         get {
             return TextVariables.eventLabelFont
         }
@@ -335,7 +335,7 @@ public extension WeekView {
     /**
     Thin font used for all event labels contained in the day view cells.
     */
-    public var eventLabelInfoFont: UIFont {
+    var eventLabelInfoFont: UIFont {
         get {
             return TextVariables.eventLabelInfoFont
         }
@@ -347,7 +347,7 @@ public extension WeekView {
     /**
      Text color for all event labels contained in the day view cells.
      */
-    public var eventLabelTextColor: UIColor {
+    var eventLabelTextColor: UIColor {
         get {
             return TextVariables.eventLabelTextColor
         }
@@ -359,7 +359,7 @@ public extension WeekView {
     /**
      Minimum percentage that event label text will be resized to if label is too small.
      */
-    public var eventLabelMinimumFontSize: CGFloat {
+    var eventLabelMinimumFontSize: CGFloat {
         get {
             return TextVariables.eventLabelMinimumFontSize
         }
@@ -371,7 +371,7 @@ public extension WeekView {
     /**
      Sets whether event label font resizing is enabled or not.
      */
-    public var eventLabelFontResizingEnabled: Bool {
+    var eventLabelFontResizingEnabled: Bool {
         get {
             return TextVariables.eventLabelFontResizingEnabled
         }
@@ -383,7 +383,7 @@ public extension WeekView {
     /**
      Horizontal padding of the text within event labels.
      */
-    public var eventLabelHorizontalTextPadding: CGFloat {
+    var eventLabelHorizontalTextPadding: CGFloat {
         get {
             return TextVariables.eventLabelHorizontalTextPadding
         }
@@ -395,7 +395,7 @@ public extension WeekView {
     /**
      Vertical padding of the text within event labels.
      */
-    public var eventLabelVerticalTextPadding: CGFloat {
+    var eventLabelVerticalTextPadding: CGFloat {
         get {
             return TextVariables.eventLabelVerticalTextPadding
         }
@@ -407,7 +407,7 @@ public extension WeekView {
     /**
      Should time of events be shown.
      */
-    public var eventShowTimeOfEvent: Bool {
+    var eventShowTimeOfEvent: Bool {
         get {
             return TextVariables.eventShowTimeOfEvent
         }
@@ -419,7 +419,7 @@ public extension WeekView {
     /**
      Should all event's data be in one line
      */
-    public var eventsDataInOneLine: Bool {
+    var eventsDataInOneLine: Bool {
         get {
             return TextVariables.eventsDataInOneLine
         }
@@ -431,7 +431,7 @@ public extension WeekView {
     /**
      Set's smalles heigh for event.
      */
-    public var eventsSmallestHeight: CGFloat {
+    var eventsSmallestHeight: CGFloat {
         get {
             return TextVariables.eventsSmallestHeight
         }
@@ -443,7 +443,7 @@ public extension WeekView {
     /**
      The text shown inside the previw event.
      */
-    public var previewEventText: String {
+    var previewEventText: String {
         get {
             return dayScrollView.layoutVariables.previewEventText
         }
@@ -455,7 +455,7 @@ public extension WeekView {
     /**
      The color of the preview event.
      */
-    public var previewEventColor: UIColor {
+    var previewEventColor: UIColor {
         get {
             return dayScrollView.layoutVariables.previewEventColor
         }
@@ -467,7 +467,7 @@ public extension WeekView {
     /**
      Height of the preview event in hours.
      */
-    public var previewEventHeightInHours: Double {
+    var previewEventHeightInHours: Double {
         get {
             return dayScrollView.layoutVariables.previewEventHeightInHours
         }
@@ -479,7 +479,7 @@ public extension WeekView {
     /**
      The number of minutes the preview event will snap to. Ex: 15.0 will snap preview event to nearest 15 minutes.
      */
-    public var previewEventPrecisionInMinutes: Double {
+    var previewEventPrecisionInMinutes: Double {
         get {
             return dayScrollView.layoutVariables.previewEventPrecisionInMinutes
         }
@@ -491,7 +491,7 @@ public extension WeekView {
     /**
      Show preview on long press.
      */
-    public var showPreviewOnLongPress: Bool {
+    var showPreviewOnLongPress: Bool {
         get {
             return dayScrollView.layoutVariables.showPreviewOnLongPress
         }
@@ -503,7 +503,7 @@ public extension WeekView {
     /**
      Default color of the day view cells. These are all days that are not weekends and not passed.
      */
-    public var defaultDayViewColor: UIColor {
+    var defaultDayViewColor: UIColor {
         get {
             return dayScrollView.layoutVariables.defaultDayViewColor
         }
@@ -518,7 +518,7 @@ public extension WeekView {
     /**
      Color for all day view cells that are weekend days.
      */
-    public var weekendDayViewColor: UIColor {
+    var weekendDayViewColor: UIColor {
         get {
             return dayScrollView.layoutVariables.weekendDayViewColor
         }
@@ -530,7 +530,7 @@ public extension WeekView {
     /**
      Color for all day view cells that are passed days and not weekends.
      */
-    public var passedDayViewColor: UIColor {
+    var passedDayViewColor: UIColor {
         get {
             return dayScrollView.layoutVariables.passedDayViewColor
         }
@@ -542,7 +542,7 @@ public extension WeekView {
     /**
      Color for all day view cells that are passed weekend days.
      */
-    public var passedWeekendDayViewColor: UIColor {
+    var passedWeekendDayViewColor: UIColor {
         get {
             return dayScrollView.layoutVariables.passedWeekendDayViewColor
         }
@@ -554,7 +554,7 @@ public extension WeekView {
     /**
      Color for today's view cell.
      */
-    public var todayViewColor: UIColor {
+    var todayViewColor: UIColor {
         get {
             return dayScrollView.layoutVariables.todayViewColor
         }
@@ -566,7 +566,7 @@ public extension WeekView {
     /**
      Color of the hour indicator.
      */
-    public var dayViewHourIndicatorColor: UIColor {
+    var dayViewHourIndicatorColor: UIColor {
         get {
             return dayScrollView.layoutVariables.hourIndicatorColor
         }
@@ -578,7 +578,7 @@ public extension WeekView {
     /**
      Thickness (or height) of the hour indicator.
      */
-    public var dayViewHourIndicatorThickness: CGFloat {
+    var dayViewHourIndicatorThickness: CGFloat {
         get {
             return dayScrollView.layoutVariables.hourIndicatorThickness
         }
@@ -590,7 +590,7 @@ public extension WeekView {
     /**
      Color of the main separators in the day view cells. Main separators are full lines and not dashed.
      */
-    public var dayViewMainSeparatorColor: UIColor {
+    var dayViewMainSeparatorColor: UIColor {
         get {
             return dayScrollView.layoutVariables.mainSeparatorColor
         }
@@ -602,7 +602,7 @@ public extension WeekView {
     /**
      Thickness of the main separators in the day view cells. Main separators are full lines and not dashed.
      */
-    public var dayViewMainSeparatorThickness: CGFloat {
+    var dayViewMainSeparatorThickness: CGFloat {
         get {
             return dayScrollView.layoutVariables.mainSeparatorThickness
         }
@@ -614,7 +614,7 @@ public extension WeekView {
     /**
      Color of the dashed/dotted separators in the day view cells.
      */
-    public var dayViewDashedSeparatorColor: UIColor {
+    var dayViewDashedSeparatorColor: UIColor {
         get {
             return dayScrollView.layoutVariables.dashedSeparatorColor
         }
@@ -626,7 +626,7 @@ public extension WeekView {
     /**
      Thickness of the dashed/dotted separators in the day view cells.
      */
-    public var dayViewDashedSeparatorThickness: CGFloat {
+    var dayViewDashedSeparatorThickness: CGFloat {
         get {
             return dayScrollView.layoutVariables.dashedSeparatorThickness
         }
@@ -644,7 +644,7 @@ public extension WeekView {
      See Apple API for additional information on pattern drawing.
      https://developer.apple.com/documentation/quartzcore/cashapelayer/1521921-linedashpattern
      */
-    public var dayViewDashedSeparatorPattern: [NSNumber] {
+    var dayViewDashedSeparatorPattern: [NSNumber] {
         get {
             return dayScrollView.layoutVariables.dashedSeparatorPattern
         }
@@ -656,7 +656,7 @@ public extension WeekView {
     /**
      Height for the day view cells. This is the initial height for zoom scale = 1.0.
      */
-    public var dayViewCellHeight: CGFloat {
+    var dayViewCellHeight: CGFloat {
         get {
             return dayScrollView.layoutVariables.dayViewCellHeight
         }
@@ -668,7 +668,7 @@ public extension WeekView {
     /**
      Amount of spacing in between day view cells when in portrait mode.
      */
-    public var portraitDayViewSideSpacing: CGFloat {
+    var portraitDayViewSideSpacing: CGFloat {
         get {
             return dayScrollView.layoutVariables.portraitDayViewHorizontalSpacing
         }
@@ -682,7 +682,7 @@ public extension WeekView {
     /**
      Amount of spacing in between day view cells when in landscape mode.
      */
-    public var landscapeDayViewSideSpacing: CGFloat {
+    var landscapeDayViewSideSpacing: CGFloat {
         get {
             return dayScrollView.layoutVariables.landscapeDayViewHorizontalSpacing
         }
@@ -696,7 +696,7 @@ public extension WeekView {
     /**
      Amount of spacing above and below day view cells when in portrait mode.
      */
-    public var portraitDayViewVerticalSpacing: CGFloat {
+    var portraitDayViewVerticalSpacing: CGFloat {
         get {
             return dayScrollView.layoutVariables.portraitDayViewVerticalSpacing
         }
@@ -710,7 +710,7 @@ public extension WeekView {
     /**
      Amount of spacing above and below day view cells when in landscape mode.
      */
-    public var landscapeDayViewVerticalSpacing: CGFloat {
+    var landscapeDayViewVerticalSpacing: CGFloat {
         get {
             return dayScrollView.layoutVariables.landscapeDayViewVerticalSpacing
         }
@@ -725,7 +725,7 @@ public extension WeekView {
      The minimum zoom scale to which the weekview can be zoomed. Ex. 0.5 means that the weekview
      can be zoomed to half the original given hourHeight.
      */
-    public var minimumZoomScale: CGFloat {
+    var minimumZoomScale: CGFloat {
         get {
             return dayScrollView.layoutVariables.minimumZoomScale
         }
@@ -738,7 +738,7 @@ public extension WeekView {
      The maximum zoom scale to which the weekview can be zoomed. Ex. 2.0 means that the weekview
      can be zoomed to double the original given hourHeight.
      */
-    public var maximumZoomScale: CGFloat {
+    var maximumZoomScale: CGFloat {
         get {
             return dayScrollView.layoutVariables.minimumZoomScale
         }
@@ -751,7 +751,7 @@ public extension WeekView {
      Sensitivity for horizontal scrolling. A higher number will multiply input velocity
      more and thus result in more cells being skipped when scrolling.
      */
-    public var velocityOffsetMultiplier: CGFloat {
+    var velocityOffsetMultiplier: CGFloat {
         get {
             return dayScrollView.layoutVariables.velocityOffsetMultiplier
         }
