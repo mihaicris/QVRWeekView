@@ -80,6 +80,7 @@ class DayViewCell: UICollectionViewCell, CAAnimationDelegate {
         if self.addingEvent {
             self.addingEvent = false
         }
+        moveOverlayToFront()
     }
 
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
@@ -122,6 +123,7 @@ class DayViewCell: UICollectionViewCell, CAAnimationDelegate {
             }
         }
         updateOverlay()
+        moveOverlayToFront()
     }
 
     func setEventsData(_ eventsData: [String: EventData], andFrames eventFrames: [String: CGRect]) {
@@ -159,7 +161,7 @@ class DayViewCell: UICollectionViewCell, CAAnimationDelegate {
                                        y: 0,
                                        width: self.bounds.width,
                                        height: bottomDistancePercent*self.bounds.height)
-            overlayView.backgroundColor = date.isWeekend() ? layoutVariables.passedWeekendDayViewColor : layoutVariables.passedDayViewColor
+            overlayView.backgroundColor = UIColor.clear
             hourIndicatorView.frame = CGRect(x: 0,
                                              y: overlayView.frame.height-layoutVariables.hourIndicatorThickness/2,
                                              width: self.bounds.width,
@@ -167,6 +169,13 @@ class DayViewCell: UICollectionViewCell, CAAnimationDelegate {
             hourIndicatorView.backgroundColor = layoutVariables.hourIndicatorColor
         }
 
+    }
+
+    private func moveOverlayToFront() {
+        if !self.overlayView.isHidden && layoutVariables.hourIndicatorBroughtToFront {
+            self.overlayView.bringSubview(toFront: self.hourIndicatorView)
+            self.bringSubview(toFront: overlayView)
+        }
     }
 
     private func generateSeparatorLayers() {

@@ -588,6 +588,18 @@ public extension WeekView {
     }
 
     /**
+     True if hour indicator view should be rendered on top of all other views
+     */
+    public var hourIndicatorBroughtToFront: Bool {
+        get {
+            return dayScrollView.layoutVariables.hourIndicatorBroughtToFront
+        }
+        set(value) {
+            self.dayScrollView.setHourIndicatorBroughtToFront(to: value)
+        }
+    }
+
+    /**
      Color of the main separators in the day view cells. Main separators are full lines and not dashed.
      */
     var dayViewMainSeparatorColor: UIColor {
