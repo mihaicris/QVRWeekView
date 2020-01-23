@@ -99,6 +99,8 @@ struct LayoutDefaults {
     static let dashedSeparatorThickness = CGFloat(1)
     // Thickness of hour indicator in the day view cells
     static let hourIndicatorThickness = CGFloat(3)
+    // True if hour indicator view should be rendered on top of all other views
+    static let hourIndicatorBroughtToFront = false
 
     // Number of visible days
     static let visibleDaysPortrait = CGFloat(2)

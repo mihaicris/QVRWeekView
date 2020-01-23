@@ -201,6 +201,10 @@ class FrameCalculator {
                 }
                 else if e1.isStart && e2.isEnd {
                     return false
+                } else {
+                    // If two events are equal in terms of dates - sort using event id
+                    // This allows events to have stable order
+                    return e1.id < e2.id
                 }
             }
             return e1.y < e2.y

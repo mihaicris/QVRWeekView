@@ -774,6 +774,14 @@ extension DayScrollView {
     }
 
     /**
+     Sets the bring to front flag of day view hour indicators.
+     */
+    func setHourIndicatorBroughtToFront(to value: Bool) {
+        layoutVariables.hourIndicatorBroughtToFront = value
+        updateLayout()
+    }
+
+    /**
      Sets the color of the main day view separators.
      */
     func setDayViewMainSeparatorColor(to color: UIColor) {
@@ -1107,6 +1115,8 @@ class LayoutVariables {
     fileprivate(set) var hourIndicatorColor = LayoutDefaults.hourIndicatorColor
     // Thickness for day view hour indicator
     fileprivate(set) var hourIndicatorThickness = LayoutDefaults.hourIndicatorThickness
+    // True if hour indicator view should be rendered on top of all other views
+    fileprivate(set) var hourIndicatorBroughtToFront = LayoutDefaults.hourIndicatorBroughtToFront
 
     // Color for day view main separators
     fileprivate(set) var mainSeparatorColor = LayoutDefaults.backgroundColor
