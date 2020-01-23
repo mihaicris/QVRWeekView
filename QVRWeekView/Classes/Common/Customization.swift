@@ -590,7 +590,7 @@ public extension WeekView {
     /**
      True if hour indicator view should be rendered on top of all other views
      */
-    public var hourIndicatorBroughtToFront: Bool {
+    var hourIndicatorBroughtToFront: Bool {
         get {
             return dayScrollView.layoutVariables.hourIndicatorBroughtToFront
         }

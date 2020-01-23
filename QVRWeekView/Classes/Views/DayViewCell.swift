@@ -173,8 +173,8 @@ class DayViewCell: UICollectionViewCell, CAAnimationDelegate {
 
     private func moveOverlayToFront() {
         if !self.overlayView.isHidden && layoutVariables.hourIndicatorBroughtToFront {
-            self.overlayView.bringSubview(toFront: self.hourIndicatorView)
-            self.bringSubview(toFront: overlayView)
+            self.overlayView.bringSubviewToFront(self.hourIndicatorView)
+            self.bringSubviewToFront(overlayView)
         }
     }
 
